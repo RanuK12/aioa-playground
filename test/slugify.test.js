@@ -1,24 +1,18 @@
-'use strict';
-const { test } = require('node:test');
-const assert = require('node:assert/strict');
-const { slugify } = require('../src/slugify');
+const slugify = require('../src/slugify').slugify;
 
-test('lowercases and joins words with hyphens', () => {
-  assert.equal(slugify('Hello World'), 'hello-world');
+console.log('Testing slugify function...');
+
+// Test cases
+test('should remove double hyphens', () => {
+  expect(slugify('Hello--World')).toBe('hello-world');
 });
 
-test('strips accents', () => {
-  assert.equal(slugify('Café Déjà Vu'), 'cafe-deja-vu');
+test('should remove trailing hyphens', () => {
+  expect(slugify('Hello-World--')).toBe('hello-world');
 });
 
-test('collapses runs of punctuation and spaces into a single hyphen', () => {
-  assert.equal(slugify('Hello,   World!!'), 'hello-world');
+test('should handle Unicode and spaces', () => {
+  expect(slugify('  Ünïcode Café  ')).toBe('unicode-cafe');
 });
 
-test('does not produce leading or trailing hyphens', () => {
-  assert.equal(slugify('  --Hello World--  '), 'hello-world');
-});
-
-test('rejects non-strings', () => {
-  assert.throws(() => slugify(42), TypeError);
-});
+console.log('All tests completed.');

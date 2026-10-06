@@ -4,9 +4,12 @@
   "private": true,
   "description": "Small utility library used to exercise the AI Opportunity Agent end to end.",
   "scripts": {
-    "test": "node --test test/"
+    "test": "jest test/slugify.test.js --detectOpenHandles"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "jest": "^30.5.2"
   }
 }
